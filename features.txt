@@ -1,0 +1,318 @@
+Warranty Management System Implementation Roadmap
+
+Project Goal
+Build the current product and warranty CRUD project into a complete business-ready platform with customer workflows, admin control, stronger backend rules, and a polished frontend experience.
+
+Current Base
+- Authentication
+- Product catalog management
+- Warranty registration
+- Warranty lookup by serial number
+
+Roadmap Strategy
+- Phase 1 focuses on stability and core usability.
+- Phase 2 adds real business logic.
+- Phase 3 adds service integrations and stronger product value.
+- Phase 4 adds premium demo features for a final-year or portfolio project.
+
+Phase 1: Foundation and Cleanup
+Goal: Make the existing system reliable, secure, and clean before adding larger features.
+
+Backend tasks in warranty-management
+- Move database password out of application.properties into environment variables.
+- Add DTOs for auth, product, and warranty responses instead of returning entities directly.
+- Add global exception handling using @ControllerAdvice.
+- Add validation annotations like @NotBlank, @NotNull, @Email, @Min.
+- Add proper error messages for invalid serial number, missing product, duplicate email, and duplicate model number.
+- Normalize input values like model number, email, and serial number.
+- Add unit tests for:
+  - warranty expiry calculation
+  - login failure
+  - duplicate product prevention
+  - duplicate serial number prevention
+
+Frontend tasks in warranty-ui
+- Replace alert() with toast notifications.
+- Add loading states for login, registration, product save, and warranty search.
+- Add empty states for no products and no search result.
+- Improve result cards with clear active and expired styles.
+- Add form validation messages before backend submission.
+
+Deliverables
+- Safer backend
+- Cleaner error handling
+- Better user feedback
+- Stable codebase for future features
+
+Phase 2: Core Business Logic
+Goal: Add the features that make this a true warranty platform instead of a CRUD app.
+
+Feature 1: My Warranties Dashboard
+Backend
+- Add endpoint to fetch all warranties for logged-in customer.
+- Add summary counts:
+  - active
+  - expired
+  - claimed
+  - expiring soon
+
+Frontend
+- Create My Warranties page.
+- Add filters by status.
+- Add card or table layout for registered warranties.
+- Add search by serial number or product name.
+
+Feature 2: Warranty Claim Workflow
+Backend
+- Create Claim entity.
+- Add claim states:
+  - REQUESTED
+  - UNDER_REVIEW
+  - APPROVED
+  - REJECTED
+  - CLOSED
+- Add claim service and claim controller.
+- Add rules:
+  - expired warranty cannot claim
+  - already claimed warranty cannot open duplicate claim
+  - only owner or admin can view claim
+
+Frontend
+- Add claim request form.
+- Add claim status badge and timeline.
+- Add claim list page for admin and customer.
+
+Feature 3: Warranty Registration Rules
+Backend
+- Purchase date cannot be in future.
+- Product must exist before warranty creation.
+- User must exist before warranty creation.
+- Serial number must be unique.
+- Purchase date older than allowed threshold should need admin approval.
+
+Frontend
+- Validate purchase date.
+- Format serial input cleanly.
+- Show rule-based error messages.
+
+Deliverables
+- Customer dashboard
+- Claim module
+- Stronger registration rules
+
+Phase 3: Admin Intelligence and Monitoring
+Goal: Give admins real operational visibility and control.
+
+Feature 4: Admin Dashboard
+Backend
+- Add analytics endpoints for:
+  - total products
+  - total warranties
+  - active warranties
+  - expired warranties
+  - claims pending
+  - expiring in 30 days
+
+Frontend
+- Build admin dashboard cards.
+- Add quick navigation to products, warranties, and claims.
+- Show expiring soon list.
+
+Feature 5: Search and Filter Services
+Backend
+- Add filtering by:
+  - product name
+  - model number
+  - status
+  - user email
+  - purchase date range
+  - expiry date range
+
+Frontend
+- Add advanced filter panel.
+- Add sort by purchase date, expiry date, and product.
+
+Feature 6: Role-Based Access Expansion
+Backend
+- Extend roles:
+  - ADMIN
+  - SUPPORT
+  - CUSTOMER
+- Define permissions clearly.
+
+Frontend
+- Show different menus and pages based on role.
+- Hide admin controls from customers.
+
+Deliverables
+- Strong admin experience
+- Searchable operational data
+- Better permission model
+
+Phase 4: Service Features and Real-World Value
+Goal: Add practical services that make the project feel production-like.
+
+Feature 7: Expiry Reminder Service
+Backend
+- Use @Scheduled job to find warranties expiring in 7 and 30 days.
+- Create reminder records or notification queue.
+
+Frontend
+- Show dashboard alerts for expiring warranties.
+
+Feature 8: Email Notification Service
+Backend
+- Send emails for:
+  - account registration
+  - warranty activation
+  - expiry reminder
+  - claim status update
+
+Frontend
+- Add notification preferences section later if needed.
+
+Feature 9: Invoice / Proof Upload
+Backend
+- Add upload support for warranty registration and claim submission.
+- Store metadata and file path.
+
+Frontend
+- Add upload area with preview and file status.
+
+Feature 10: PDF Warranty Certificate
+Backend
+- Generate downloadable PDF certificate for each registered warranty.
+
+Frontend
+- Add Download Certificate button in warranty details.
+
+Deliverables
+- Reminders
+- Emails
+- Upload support
+- Downloadable warranty certificate
+
+Phase 5: Premium Project Extensions
+Goal: Add standout features for portfolio, demo, or final presentation value.
+
+Feature 11: QR or Barcode Warranty Lookup
+- Generate QR code for each warranty.
+- Support scan-based lookup instead of typing serial.
+
+Feature 12: Product Detail Insights
+- Show total registered units for each product.
+- Show active vs expired warranty counts by product.
+- Show claim rate by product model.
+
+Feature 13: Charts and Visual Analytics
+- Monthly registrations
+- Active vs expired chart
+- Claims by status
+- Top product models
+
+Feature 14: Audit Trail
+- Track who created, updated, approved, rejected, or closed records.
+- Keep status history for claims and warranties.
+
+Feature 15: Service Center Module
+- Add authorized service centers by city or region.
+- Link claims or repairs to a service center.
+
+Recommended Build Order
+If you want the smartest implementation path, build in this exact order:
+
+1. Foundation cleanup
+- DTOs
+- validation
+- exception handling
+- toast notifications
+- loading states
+
+2. My Warranties dashboard
+- customer-facing value appears quickly
+
+3. Warranty registration rules
+- prevents bad data before the system grows
+
+4. Claim workflow
+- strongest business feature in the whole project
+
+5. Admin dashboard and analytics
+- important for project presentation
+
+6. Expiry reminders
+- strong real-world business logic
+
+7. Email service
+- makes the system feel complete
+
+8. Invoice upload and PDF certificate
+- adds enterprise feel
+
+9. QR lookup and charts
+- premium demo features
+
+Suggested Sprint Plan
+
+Sprint 1
+- Backend validation
+- DTOs
+- global exception handling
+- frontend toasts and loading states
+
+Sprint 2
+- My Warranties page
+- warranty summary counts
+- filter by status
+
+Sprint 3
+- claim entity
+- claim APIs
+- claim request UI
+
+Sprint 4
+- admin dashboard
+- analytics APIs
+- search and filters
+
+Sprint 5
+- expiry scheduler
+- email notifications
+
+Sprint 6
+- invoice upload
+- PDF certificate
+- QR lookup
+
+Architecture Improvements To Keep In Mind
+- Separate entity, DTO, service, and controller responsibilities clearly.
+- Avoid exposing passwords or internal entity structures in API responses.
+- Use service-layer business rules instead of controller-side logic.
+- Add reusable utility methods for status calculation and expiry checks.
+- Later, consider pagination for large product and warranty lists.
+
+Nice UI Upgrades For warranty-ui
+- My Warranties dashboard cards
+- claims timeline UI
+- analytics charts
+- shimmer loading states
+- premium empty states
+- modal or drawer for product details
+- expiry warning banners
+- success animations for completed actions
+
+High-Impact Final Demo Features
+- Customer can register warranty and later view it in dashboard
+- Admin can manage products and see analytics
+- Customer can submit claim
+- Admin can approve or reject claim
+- System sends reminder before expiry
+- Customer downloads warranty certificate
+
+Best Next Implementation Choice
+Start with:
+- Phase 1 cleanup
+- then My Warranties dashboard
+- then Claim workflow
+
+That path gives you the highest business value with the least architectural risk.

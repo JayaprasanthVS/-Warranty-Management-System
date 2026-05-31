@@ -1,0 +1,38 @@
+﻿# Java/Maven (Backend)
+warranty-management/target/
+warranty-management/.mvn/wrapper/maven-wrapper.jar
+warranty-management/.settings/
+warranty-management/.project
+warranty-management/.classpath
+warranty-management/.factorypath
+warranty-management/bin/
+
+# Node/React (Frontend)
+warranty-ui/node_modules/
+warranty-ui/dist/
+warranty-ui/dist-ssr/
+warranty-ui/*.local
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Database/Environment (if any)
+.env
+.env.local
+
+# Temp/Test Files
+test_write.txt
+test.txt
